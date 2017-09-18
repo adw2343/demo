@@ -1,0 +1,51 @@
+spring: 
+  jackson:
+    serialization:
+      INDENT_OUTPUT:  true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        generate_statistics: true
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region_prefix: async
+          region:
+            factory_class: org.hibernate.cache.infinispan.InfinispanRegionFactory
+          default_cache_concurrency_strategy: read-write
+          infinispan:
+            cfg: config/infinispan-config.xml
+      javax:
+          persistence:
+            sharedCache:
+              mode: ENABLE_SELECTIVE
+
+    hibernate:
+      naming:
+        physical-strategy: com.laining.orm.model.MyPhysicalNamingStrategy
+      ddl-auto: none
+      
+logging:
+  config: classpath:config/logback-local.xml
+  
+app:
+  datasource:
+    db1:
+      url: jdbc:mysql://127.0.0.1:3306/testdb?characterEncoding=utf-8&amp;useUnicode=true
+      username: root
+      password: rootroot
+      driver-class-name: com.mysql.jdbc.Driver
+      max-idle: 10
+      max-wait: 10000
+      min-idle: 5
+      initial-size: 5
+    db2:
+      url: jdbc:mysql://127.0.0.1:3306/testdb1?characterEncoding=utf-8&amp;useUnicode=true
+      username: root
+      password: rootroot
+      driver-class-name: com.mysql.jdbc.Driver
+      max-idle: 10
+      max-wait: 10000
+      min-idle: 5
+      initial-size: 5
